@@ -11,5 +11,12 @@
     "type": "git",
     "url": "https://github.com/natitam1/freecodecamp_backend_dev.git"
   },
-  "author": "Natnael Tamiru"
+  "author": "Natnael Tamiru",
+  "description": "A project that tracks user activity",
+  "keywords": [
+    "Tracker",
+    "Fullstack",
+    "Easy",
+    "freecodecamp"
+  ]
 }
