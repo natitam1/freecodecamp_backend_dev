@@ -3,7 +3,7 @@ let express = require("express");
 let app = express();
 
 app.use(function logger(req, res, next) {
-  console.log(`${req.method} /${req.path} - ${req.ip}`);
+  console.log(`${req.method} ${req.path} - ${req.ip}`);
   next();
 });
 
@@ -11,13 +11,25 @@ app.use(function logger(req, res, next) {
 let path = __dirname + "/public";
 app.use("/public", express.static(path));
 
+// /now route with chained middleware + handler
+app.get(
+  "/now",
+  function (req, res, next) {
+    req.time = new Date().toString(); // middleware adds current time
+    next();
+  },
+  function (req, res) {
+    res.json({ time: req.time }); // handler responds with JSON
+  }
+);
+
 // send index.html on root request
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
 });
 
 app.get("/json", (req, res) => {
-  process.env.MESSAGE_STYLE == "uppercase"
+  process.env.MESSAGE_STYLE === "uppercase"
     ? res.json({ message: "HELLO JSON" })
     : res.json({ message: "Hello json" });
 });
