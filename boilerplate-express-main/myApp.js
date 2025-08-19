@@ -1,5 +1,11 @@
+require("dotenv").config();
 let express = require("express");
 let app = express();
+
+app.use(function logger(req, res, next) {
+  console.log(`${req.method} /${req.path} - ${req.ip}`);
+  next();
+});
 
 // serve static assets
 let path = __dirname + "/public";
@@ -11,7 +17,9 @@ app.get("/", (req, res) => {
 });
 
 app.get("/json", (req, res) => {
-  res.json({ message: "Hello json" });
+  process.env.MESSAGE_STYLE == "uppercase"
+    ? res.json({ message: "HELLO JSON" })
+    : res.json({ message: "Hello json" });
 });
 
 module.exports = app;
