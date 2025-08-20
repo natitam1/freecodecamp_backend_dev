@@ -23,6 +23,10 @@ app.get(
   }
 );
 
+app.get("/:word/echo", (req, res) => {
+  res.json({ echo: req.params.word });
+});
+
 // send index.html on root request
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
