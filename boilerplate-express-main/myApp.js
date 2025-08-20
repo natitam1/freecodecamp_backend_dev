@@ -27,6 +27,12 @@ app.get("/:word/echo", (req, res) => {
   res.json({ echo: req.params.word });
 });
 
+app.get("/name", (req, res) => {
+  const first = req.query.first || "";
+  const last = req.query.last || "";
+  res.json({ name: `${first} ${last}` });
+});
+
 // send index.html on root request
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
